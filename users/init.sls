@@ -17,6 +17,16 @@ user-{{ user }}:
         - require:
             - group: group_wheel
 
+cp-user-home-{{ user }}:
+    file.recurse:
+        - name: /home/{{ user }}
+        - user: {{ user }}
+        - group: {{ user }}
+        - source: salt://users/{{ user }}
+        - include_empty: True
+        - require:
+            - user: user-{{ user }}
+
 {% if 'ssh_keys' in pillar['users'][user] %}
 ssh_keys_{{ user }}:
     ssh_auth.present:
@@ -27,6 +37,7 @@ ssh_keys_{{ user }}:
 {% endfor %}
         - require:
             - user: user-{{ user }}
+            - file: cp-user-home-{{ user }}
 {% endif %}
 
 {% endfor %}

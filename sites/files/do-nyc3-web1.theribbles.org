@@ -3,4 +3,19 @@ server {
     server_name do-nyc3-web1.theribbles.org;
 
     root /var/www/do-nyc3-web1.theribbles.org;
+
+    index index.php;
+
+    location / {
+        try_files $uri $uri/ $uri/index.html $uri/index.php $uri.php;
+    }
+    location ~ \.php$ {
+        try_files $uri =404;
+        fastcgi_split_path_info $(.+\.php)(/.+)$;
+        #NOTE: You should have "cgi.fix_pathinfo = 0;" in php.ini
+
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        fastcgi_pass php;
+    }
 }

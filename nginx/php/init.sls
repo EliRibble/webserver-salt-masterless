@@ -3,7 +3,6 @@ curl:
         - pkgs:
             - curl
             - libcurl4-openssl-dev
-            - php-curl
 
 php-cli:
     pkg.installed
@@ -17,8 +16,18 @@ php-fpm:
     require:
         - pkg: curl
 
-php-mysql:
-    pkg.installed
+php-modules:
+    pkg.installed:
+        - pkgs:
+            - php7.0-mysql
+            - php7.0-curl
+            - php7.0-gd
+            - php7.0-intl
+            - php-imagick
+            - php7.0-imap
+            - php7.0-mcrypt
+            - php7.0-tidy
+            - php-gettext
 
 /etc/nginx/conf.d/php-upstream.conf:
     file.managed:

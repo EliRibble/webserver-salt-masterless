@@ -1,2 +1,2 @@
 include:
-    - sites.do-nyc3-web1_theribbles_org
+    - sites.usw2_web_theribbles_org

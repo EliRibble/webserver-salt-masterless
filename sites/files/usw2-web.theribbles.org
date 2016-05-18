@@ -1,8 +1,8 @@
 server {
     listen 80;
-    server_name do-nyc3-web1.theribbles.org;
+    server_name usw2-web.theribbles.org;
 
-    root /var/www/do-nyc3-web1.theribbles.org;
+    root /var/www/usw2-web.theribbles.org;
 
     index index.php;
 

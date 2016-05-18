@@ -2,22 +2,22 @@ curl:
     pkg.installed:
         - pkgs:
             - curl
-            - libcurl3
-            - libcurl3-dev
-            - php5-curl
+            - libcurl4-openssl-dev
+            - php-curl
 
-php5-cli:
+php-cli:
     pkg.installed
 
-php5-fpm:
+php-fpm:
     pkg.installed:
-        - name: php5-fpm
+        - name: php-fpm
     service.running:
+        - name: php7.0-fpm
         - enable: True
     require:
         - pkg: curl
 
-php5-mysql:
+php-mysql:
     pkg.installed
 
 /etc/nginx/conf.d/php-upstream.conf:

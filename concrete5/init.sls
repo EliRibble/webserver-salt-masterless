@@ -7,7 +7,7 @@
         - group: root
         - mode: 644
         - context:
-            server_name: {{ site }}
+            site: {{ site }}
 
 /etc/nginx/sites-enabled/{{ site }}:
     file.symlink:

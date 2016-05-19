@@ -4,14 +4,14 @@ curl:
             - curl
             - libcurl4-openssl-dev
 
-php-cli:
+php5-cli:
     pkg.installed
 
-php-fpm:
+php5-fpm:
     pkg.installed:
-        - name: php-fpm
+        - name: php5-fpm
     service.running:
-        - name: php7.0-fpm
+        - name: php5-fpm
         - enable: True
     require:
         - pkg: curl
@@ -19,14 +19,14 @@ php-fpm:
 php-modules:
     pkg.installed:
         - pkgs:
-            - php7.0-mysql
-            - php7.0-curl
-            - php7.0-gd
-            - php7.0-intl
-            - php-imagick
-            - php7.0-imap
-            - php7.0-mcrypt
-            - php7.0-tidy
+            - php5-mysql
+            - php5-curl
+            - php5-gd
+            - php5-intl
+            - php5-imagick
+            - php5-imap
+            - php5-mcrypt
+            - php5-tidy
             - php-gettext
 
 /etc/nginx/conf.d/php-upstream.conf:

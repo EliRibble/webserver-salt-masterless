@@ -7,3 +7,4 @@ base:
     - sites
     - ssh
     - users
+    - wordpress

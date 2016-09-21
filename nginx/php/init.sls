@@ -19,15 +19,17 @@ php5-fpm:
 php-modules:
     pkg.installed:
         - pkgs:
-            - php5-mysql
+            - php-gettext
+            - php-pear
             - php5-curl
+            - php5-dev
             - php5-gd
             - php5-intl
             - php5-imagick
             - php5-imap
             - php5-mcrypt
+            - php5-mysql
             - php5-tidy
-            - php-gettext
 
 /etc/nginx/conf.d/php-upstream.conf:
     file.managed:
@@ -35,3 +37,27 @@ php-modules:
         - user: root
         - group: root
         - mode: 644
+
+pear-channel-update:
+    cmd.run:
+        - name: pear channel-update pear.php.net
+    require:
+        - pkg: php-modules
+
+pear-upgrade:
+    cmd.run:
+        - name: pear upgrade-all
+    require:
+        - cmd: pear-channel-update
+
+pear-install-mail:
+    cmd.run:
+        - name: pear install --soft Mail
+    require:
+        - cmd: pear-upgrade
+
+pear-install-smtp:
+    cmd.run:
+        - name: pear install --soft Net_SMTP
+    require:
+        - cmd: pear-upgrade

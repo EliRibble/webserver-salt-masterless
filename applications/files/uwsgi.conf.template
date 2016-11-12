@@ -1,0 +1,7 @@
+[program:{{ processname }}]
+directory = /tmp
+user = www-data
+command = /opt/src/uwsgi-2.0.8/uwsgi --ini /etc/uwsgi/apps-enabled/{{ processname }}.ini
+redirect_stderr = true
+stdout_logfile=/var/log/supervisor/{{ processname }}.uwsgi.log
+autorestart = true

@@ -1,5 +1,6 @@
 base:
   '*':
+    - applications
     - concrete5
     - mysql
     - nginx

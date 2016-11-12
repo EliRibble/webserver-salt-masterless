@@ -1,0 +1,45 @@
+server {
+    listen          80;
+    server_name     {{ site }};
+
+    location /.well-known/acme-challenge/ {
+        root /var/www/letsencrypt/{{ site }}/;
+    }
+
+    location / {
+        return 301 https://$server_name$request_uri;
+    }
+}
+
+server {
+    listen 443 ssl;
+    server_name {{ site }};
+
+
+    ssl_certificate     /etc/letsencrypt/live/{{ site }}/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/{{ site }}/privkey.pem;
+    ssl_prefer_server_ciphers on;
+    ssl_protocols TLSv1.2 TLSv1.1 TLSv1;
+    ssl_ciphers ECDH+AESGCM:DH+AESGCM:ECDH+AES256:DH+AES256:ECDH+AES128:DH+AES:ECDH+3DES:DH+3DES:RSA+AESGCM:RSA+AES:RSA+3DES:!aNULL:!MD5:!DSS;
+
+    ssl_ecdh_curve      secp521r1;
+    ssl_session_timeout 10m;
+    ssl_session_cache   shared:SSL:10m;
+
+
+
+
+    location / {
+        uwsgi_pass      unix:///tmp/{{ site }}.socket;
+        include         uwsgi_params;
+        uwsgi_param     UWSGI_SCHEME $scheme;
+        uwsgi_param     SERVER_SOFTWARE nginx/$nginx_version;
+        expires         -1;
+    }
+
+    location /robots.txt {
+         return 200 'User-agent: *\nDisallow: /';
+          access_log off;
+    }
+
+}

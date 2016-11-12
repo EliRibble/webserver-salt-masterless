@@ -4,6 +4,7 @@ base:
     - mysql
     - nginx
     - nginx.php
+    - postgres
     - sites
     - ssh
     - users

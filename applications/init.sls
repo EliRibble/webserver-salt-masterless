@@ -8,14 +8,14 @@ include:
     cmd.run:
         - name: createdb {{ spec.db.name }}
         - runas: postgres
-        - unless: psql -l | grep {{ spec.db.name }} | wc -l
+        - unless: psql -l | grep {{ spec.db.name }}
 
 
 {{ site }}-db-user:
     cmd.run:
         - name: psql -d {{ spec.db.name }} -c "CREATE USER {{ spec.db.user }} WITH PASSWORD '{{ spec.db.password }}';"
         - runas: postgres
-        - unless: psql -d {{ spec.db.name }} -c "SELECT 1 FROM pg_roles WHERE rolname='{{spec.db.name}}'"
+        - unless: psql -d {{ spec.db.name }} -c "SELECT rolname FROM pg_roles WHERE rolname='{{spec.db.name}}'" | grep {{ spec.db.name}}
 
 {{ site }}-db-privileges:
     cmd.run:

@@ -37,6 +37,10 @@ server {
         expires         -1;
     }
 
+    location /static/ {
+        root /var/www/{{ site }}/;
+    }
+
     location /robots.txt {
          return 200 'User-agent: *\nDisallow: /';
           access_log off;

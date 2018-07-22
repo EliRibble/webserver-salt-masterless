@@ -1,6 +1,6 @@
 postgresql:
     pkg.installed:
-        - name: postgresql-10
+        - name: postgresql
     service.running:
         - name: postgresql
         - enable: True

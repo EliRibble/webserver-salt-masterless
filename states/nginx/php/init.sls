@@ -7,14 +7,14 @@ php-dependencies:
             - php-dev
             - php-pear
 
-php7.2-cli:
+php-cli:
     pkg.installed
 
-php7.2-fpm:
+php-fpm:
     pkg.installed:
-        - name: php7.2-fpm
+        - name: php-fpm
     service.running:
-        - name: php7.2-fpm
+        - name: php7.0-fpm
         - enable: True
     require:
         - pkg: curl
@@ -65,6 +65,11 @@ pear-install-smtp:
     require:
         - cmd: pear-upgrade
 
+pecl-channel-update:
+    cmd.run:
+        - name: pecl channel-update pecl.php.net
+    require:
+        - pkg: php-modules
 pecl-install-mcrypt:
     cmd.run:
         - name: pecl install mcrypt-1.0.1

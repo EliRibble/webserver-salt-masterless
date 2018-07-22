@@ -12,6 +12,7 @@ Where I stuff my salt masterless config on my webserver.
  - You may need to add a new SSH key
   - ssh-keygen '...'
   - upload to Github
+ - `sudo apt-get install git`
  - git clone git@github.com:EliRibble/webserver-salt-masterless.git 
 3. Set up salt
  - make `/etc/salt/minion` contain:
@@ -19,12 +20,11 @@ Where I stuff my salt masterless config on my webserver.
 file_client: local
 id: webserver
 file_roots:
-    prod:
-        - /home/eliribble/src/webserver-salt-masterless/states
+    base:
+        - /srv/salt/states
 pillar_roots:
-    prod:
-        - /home/eliribble/src/webserver-salt-masterless/pillars
-#ca.cert_base_path: '/etc/pki'
+    base:
+        - /srv/salt/pillars
 ```
  - `sudo mkdir /srv/salt`
  - `ln -s /home/eliribble/src/webserver-salt-masterless/top.sls /srv/salt/top.sls`
@@ -100,13 +100,16 @@ users:
 	nickcloward:
 		<as above>
 ```
+6. Get some pillars up and running. It's hard to get all the pillars correct right off the bat, so feel free to apply them in the following order:
+ - users
+ - mysql
+ - nginx
+ - nginx.php
+ - postgres
 
 Testing:
 base:
   '*':
     - applications
     - concrete5
-    - mysql
-    - nginx
-    - nginx.php
     - wordpress

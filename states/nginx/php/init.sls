@@ -1,17 +1,20 @@
-curl:
+php-dependencies:
     pkg.installed:
         - pkgs:
+            - build-essential
             - curl
             - libcurl4-openssl-dev
+            - php-dev
+            - php-pear
 
-php5-cli:
+php7.2-cli:
     pkg.installed
 
-php5-fpm:
+php7.2-fpm:
     pkg.installed:
-        - name: php5-fpm
+        - name: php7.2-fpm
     service.running:
-        - name: php5-fpm
+        - name: php7.2-fpm
         - enable: True
     require:
         - pkg: curl
@@ -20,16 +23,13 @@ php-modules:
     pkg.installed:
         - pkgs:
             - php-gettext
-            - php-pear
-            - php5-curl
-            - php5-dev
-            - php5-gd
-            - php5-intl
-            - php5-imagick
-            - php5-imap
-            - php5-mcrypt
-            - php5-mysql
-            - php5-tidy
+            - php-curl
+            - php-gd
+            - php-intl
+            - php-imagick
+            - php-imap
+            - php-mysql
+            - php-tidy
 
 /etc/nginx/conf.d/php-upstream.conf:
     file.managed:
@@ -53,11 +53,19 @@ pear-upgrade:
 pear-install-mail:
     cmd.run:
         - name: pear install --soft Mail
+        - unless: pear list Mail
     require:
         - cmd: pear-upgrade
+    
 
 pear-install-smtp:
     cmd.run:
         - name: pear install --soft Net_SMTP
+        - unless: pear list Net_SMTP
     require:
         - cmd: pear-upgrade
+
+pecl-install-mcrypt:
+    cmd.run:
+        - name: pecl install mcrypt-1.0.1
+        - unless: pecl list mcrypt

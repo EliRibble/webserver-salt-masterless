@@ -1,4 +1,4 @@
-mysql-server-5.6:
+mysql-server:
     pkg.installed
 
 python-mysqldb:

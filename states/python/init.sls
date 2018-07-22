@@ -1,8 +1,8 @@
 python3-setuptools:
     pkg.installed
 
-python3.4:
+python3.7:
     pkg.installed
 
-libpython3.4-dev:
+libpython3.7-dev:
     pkg.installed

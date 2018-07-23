@@ -106,10 +106,18 @@ users:
  - nginx
  - nginx.php
  - postgres
+ - concrete5
+ - wordpress
 
 Testing:
 base:
-  '*':
-    - applications
-    - concrete5
-    - wordpress
+ - applications
+
+7. Migrating sites to a new server (Wordpress)
+ - `tar -czvf /tmp/blog.sweetcharitys.com.tgz -C /var/www /var/www/blog.sweetcharitys.com`
+ - Use scp to move the file to the new server
+ - `tar -xzvf blog.sweetcharitys.com.tgz 
+ - `mysqldump --user <db user> -p thehumanascent_c5 | gzip > thehumanascent_c5.sql.gz`
+ - Use scp to move the file to the new server
+ - `gzip -d thehumanascent_c5.sql.gz`
+ - `mysql -u <db user> -p thehumanascent_c5 < thehumanascent_db.sql`

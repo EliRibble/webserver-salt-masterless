@@ -30,6 +30,7 @@ php-modules:
             - php-imap
             - php-mysql
             - php-tidy
+            - php-zip
 
 /etc/nginx/conf.d/php-upstream.conf:
     file.managed:

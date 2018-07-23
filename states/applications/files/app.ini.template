@@ -2,7 +2,7 @@
 socket                      = /tmp/{{ app }}.socket
 plugin_dir                  = /opt/src/uwsgi-2.0.8/
 python-path                 = /opt/src/{{ app }}
-python-path                 = /opt/src/{{ app }}/ve/lib/python3.4/site-packages/
+python-path                 = /opt/src/{{ app }}/ve/lib/python3.5/site-packages/
 python-path                 = /usr/lib/python3.4
 wsgi-file                   = {{ spec.wsgifile }}
 home                        = /opt/src/{{ app }}/ve

@@ -39,9 +39,9 @@ uwsgi-python3-compile:
 
 uwsgi-python3-plugin-compile:
     cmd.run:
-        - name: python3 uwsgiconfig.py --plugin plugins/python core python34
+        - name: python3 uwsgiconfig.py --plugin plugins/python core python35
         - cwd: /opt/src/uwsgi-2.0.8
-        - unless: ls /opt/src/uwsgi-2.0.8/python34_plugin.so
+        - unless: ls /opt/src/uwsgi-2.0.8/python35_plugin.so
         - require:
             - archive: /opt/src/uwsgi-2.0.8
 
